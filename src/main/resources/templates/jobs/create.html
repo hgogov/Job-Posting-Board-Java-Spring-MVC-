@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head">
+    <title>Post a job</title>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+
+
+<h2>Post a job</h2>
+<th:block th:text="${success}">success</th:block>
+<div class="container">
+    <div class="row">
+        <form method="POST" action="/jobs/create" th:object="${job}">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" th:field="*{name}" class="form-control"
+                       placeholder="Name"/>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input id="description" name="description" type="text" th:field="*{description}" class="form-control"
+                       placeholder="Description"/>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('description')}"
+                     th:errors="*{description}"></div>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" th:field="*{category}" class="form-control">
+                    <option value="">Select category</option>
+                    <option th:each="category : ${categories}" th:value="${category.id}"
+                            th:text="${category.name}"></option>
+                </select>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <select id="location" name="location" th:field="*{location}" class="form-control">
+                    <option value="">Select location</option>
+                    <option th:each="location : ${locations}" th:value="${location.id}"
+                            th:text="${location.name}"></option>
+                </select>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
+            </div>
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select id="type" name="type" th:field="*{type}" class="form-control">
+                    <option value="">Select type</option>
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
+            </div>
+            <div class="form-group">
+                <label for="experienceLevel">Experience level</label>
+                <select id="experienceLevel" name="experienceLevel" th:field="*{experienceLevel}" class="form-control">
+                    <option value="">Select type</option>
+                    <option th:each="experienceLevel : ${experienceLevels}" th:value="${experienceLevel.id}"
+                            th:text="${experienceLevel.name}"></option>
+                </select>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('experienceLevel')}"
+                     th:errors="*{experienceLevel}"></div>
+            </div>
+            <div class="form-group">
+                <label for="company">Company</label>
+                <select id="company" name="company" th:field="*{company}" class="form-control">
+                    <option value="">Select company</option>
+                    <option th:each="company : ${companies}" th:value="${company.id}"
+                            th:text="${company.name}"></option>
+                </select>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></div>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

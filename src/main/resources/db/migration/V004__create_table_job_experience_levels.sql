@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS job_experience_levels (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(30) UNIQUE NOT NULL
+);

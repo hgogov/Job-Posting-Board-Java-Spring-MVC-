@@ -1,0 +1,32 @@
+server.port: 8080
+
+debug: true
+
+spring:
+  datasource:
+    url: ${app.datasource.url}
+    username: ${app.datasource.username}
+    password: ${app.datasource.password}
+
+  jpa:
+    show-sql: true
+
+  flyway:
+    url: ${app.datasource.url}
+    username: ${app.datasource.username}
+    password: ${app.datasource.password}
+
+    mvc:
+      log-request:
+        details: true
+
+app:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jobs
+    username: jobsroot
+    password: jobssecret
+
+logging:
+  level:
+      org:
+        springframework: DEBUG

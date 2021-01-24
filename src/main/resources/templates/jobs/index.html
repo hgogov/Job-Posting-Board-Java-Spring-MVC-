@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:insert="fragments/head :: head">
+    <title>Index</title>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+
+
+<div class="form-group">
+    <form method="GET" action="/jobs/search" th:object="${searchJob}">
+        <div class="form-row">
+            <div class="col">
+                <input id="name" name="name" type="text" th:field="*{name}" class="form-control"
+                       placeholder="Search by name"/>
+            </div>
+            <div class="col">
+                <select id="category" name="category" th:field="*{category}" class="form-control">
+                    <option value="">Select category</option>
+                    <option th:each="category : ${categories}" th:value="${category.id}"
+                            th:text="${category.name}"></option>
+                </select>
+            </div>
+            <div class="col">
+                <select id="location" name="location" th:field="*{location}" class="form-control">
+                    <option value="">Select location</option>
+                    <option th:each="location : ${locations}" th:value="${location.id}"
+                            th:text="${location.name}"></option>
+                </select>
+            </div>
+            <div class="col">
+                <select id="type" name="type" th:field="*{type}" class="form-control">
+                    <option value="">Select type</option>
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
+            </div>
+            <div class="col">
+                <select id="experienceLevel" name="experienceLevel" th:field="*{experienceLevel}" class="form-control">
+                    <option value="">Select type</option>
+                    <option th:each="experienceLevel : ${experienceLevels}" th:value="${experienceLevel.id}"
+                            th:text="${experienceLevel.name}"></option>
+                </select>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary btn-block" value="Search"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Location</th>
+        <th>Category</th>
+        <th sec:authorize="hasRole('ADMIN')"></th>
+    </tr>
+
+    <th:block th:each="job : ${jobs.content}">
+        <tr>
+            <td><a th:href="@{/jobs/details/{id}(id=${job.id})}" th:text="${job.name}"></a></td>
+            <td th:text="${job.company.name}"></td>
+            <td th:text="${job.location.name}"></td>
+            <td th:text="${job.category.name}"></td>
+            <td style="width: 255px" sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/jobs/edit/{id}(id=${job.id})}" class="btn btn-sm btn-outline-dark ">Edit</a>
+                <a th:href="@{/jobs/create}" class="btn btn-sm btn-primary ">Create</a>
+                <a th:href="@{/jobs/details/{id}(id=${job.id})}" class="btn btn-sm btn-success ">Details</a>
+                <a th:href="@{/jobs/delete/{id}(id=${job.id})}" class="btn btn-sm btn-danger ">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+<!-- jobs pagination -->
+<nav aria-label="Pagination" th:if="${jobs.totalPages gt 0}">
+    <ul class="pagination justify-content-center font-weight-medium">
+        <li class="page-item" th:classappend="${jobs.number eq 0} ? 'disabled'">
+            <a class="page-link svg-icon"
+               th:href="@{/jobs/(size=${jobs.size}, page=${jobs.number lt 2 ? 1 : jobs.number})}"
+               aria-label="Previous"
+               title="Previous Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"><</span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${i eq jobs.number + 1} ? 'active'"
+            th:each="i : ${#numbers.sequence(jobs.number + 1, jobs.totalPages > 10 + jobs.number ? jobs.number + 10 : jobs.totalPages, 1)}">
+            <a class="page-link" th:href="@{/jobs/(size=${jobs.size}, page=${i})}" th:text="${i}"
+               th:title="${'Page '+ i}"
+               rel="tooltip"></a>
+        </li>
+        <li class="page-item" th:if="${jobs.number + 10 < jobs.totalPages}">
+            <a class="page-link svg-icon" href="#">
+                <span data-feather="more-horizontal" width="20" height="20"></span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${totalElements %5 gt 0} ? 'disabled'">
+            <a class="page-link svg-icon" th:href="@{/jobs/(size=${jobs.size}, page=${jobs.number + 2})}"
+               aria-label="Next"
+               title="Next Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20">></span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>

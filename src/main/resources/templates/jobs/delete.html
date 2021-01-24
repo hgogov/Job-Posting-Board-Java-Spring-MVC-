@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head">
+    <title>Delete</title>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<h2>Delete
+    <th:block th:text="${job.name}"></th:block>
+</h2>
+
+<h3>Are you sure you want to delete <th:block th:text="${job.name}"></th:block>?</h3>
+<hr/>
+<form method="POST" th:action="@{/jobs/delete/{id}(id=${job.id})}">
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger"/> |
+        <a th:href="@{/jobs}">Back to job list</a>
+    </div>
+</form>
+
+</body>
+</html>

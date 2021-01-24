@@ -1,0 +1,21 @@
+INSERT INTO categories("name")
+VALUES
+('Administrative & Customer Support'),
+('Architecture & Engineering'),
+('Community & Human Services'),
+('Construction & Extraction'),
+('Education & Instruction'),
+('Finance & Accounting'),
+('Flight Attendant'),
+('Food & Beverage'),
+('Healthcare'),
+('Legal'),
+('Marketing, Advertising & Public Relations'),
+('Personal Services'),
+('Protective & Security'),
+('Repair, Maintenance & Installation'),
+('Sales & Retail'),
+('Technology'),
+('Transportation'),
+('Travel, Attractions & Events'),
+('Other')

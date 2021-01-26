@@ -9,6 +9,7 @@ import com.company.jobs.mapper.UserMapper;
 import com.company.jobs.repository.RoleRepository;
 import com.company.jobs.repository.UserRepository;
 import com.company.jobs.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class AccountServiceImpl implements AccountService {
     private final UserMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public AccountServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper mapper, UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;

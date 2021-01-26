@@ -22,14 +22,12 @@ public class AccountServiceImpl implements AccountService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper mapper;
-    private final UserDetailsServiceImpl userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
     public AccountServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper mapper, UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.mapper = mapper;
-        this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -52,22 +50,6 @@ public class AccountServiceImpl implements AccountService {
         UserDTO newUser = mapper.mapToUserDTO(user);
         return newUser;
     }
-
-    @Override
-    public UserDTO login(UserDTO userDTO) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getEmail());
-        UserDTO existingUserDTO = new UserDTO();
-        userDetails.getUsername().equals(userDTO.getEmail());
-        if(userDetails.getPassword().equals(userDTO.getPassword())){
-            existingUserDTO.setId(userDTO.getId());
-            existingUserDTO.setEmail(userDTO.getEmail());
-            existingUserDTO.setPassword(userDTO.getPassword());
-            existingUserDTO.setRoleIds(userDTO.getRoleIds());
-        }
-
-        return existingUserDTO;
-    }
-
 
     private boolean emailExists(String email) {
         User user = userRepository.findByEmail(email);

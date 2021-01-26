@@ -22,9 +22,9 @@ spring:
 
 app:
   datasource:
-    url: jdbc:postgres://ujypdifcqancvg:a3f628faaede6d3320c8c3dc63fa8c1d672ad9c51b336769621966074232a6f0@ec2-18-205-122-145.compute-1.amazonaws.com:5432/da7096jij7cl0p
-    username:
-    password:
+    url: postgres://ec2-18-205-122-145.compute-1.amazonaws.com:5432/da7096jij7cl0p?sslmode=require&user=ujypdifcqancvg&password=a3f628faaede6d3320c8c3dc63fa8c1d672ad9c51b336769621966074232a6f0
+    username: ujypdifcqancvg
+    password: a3f628faaede6d3320c8c3dc63fa8c1d672ad9c51b336769621966074232a6f0
 
 logging:
   level:
